@@ -1,0 +1,86 @@
+<!-- Dashboard Component Template -->
+<div class="dashboard-container">
+    <div class="container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title fade-in">📊 Dashboard</h1>
+            <p class="dashboard-subtitle fade-in">View and manage your shortened links</p>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="loading-container">
+            <div class="spinner-lg"></div>
+            <p>Loading your links...</p>
+        </div>
+
+        <!-- Empty State (when no links) -->
+        <div *ngIf="!isLoading && links.length === 0" class="empty-state card fade-in">
+            <div class="empty-icon">🔗</div>
+            <h2 class="empty-title">No Links Yet</h2>
+            <p class="empty-description">
+                You haven't created any shortened links yet. Head over to the home page to create your first link!
+            </p>
+            <a routerLink="/" class="btn btn-primary btn-lg">
+                ✨ Create Your First Link
+            </a>
+
+            <div class="info-box mt-3">
+                <p><strong>Note:</strong> Currently, the backend doesn't have an endpoint to list all shortened URLs.
+                    This dashboard would display all your links once that API endpoint is implemented.
+                    For now, you can create links from the home page and they will be saved in the database!</p>
+            </div>
+        </div>
+
+        <!-- Links Grid (when links exist) -->
+        <div *ngIf="!isLoading && links.length > 0" class="links-grid">
+            <div *ngFor="let link of links" class="link-card card fade-in">
+                <!-- Status Badge -->
+                <div class="link-header">
+                    <span class="badge" [ngClass]="{
+              'badge-success': link.linkStatus === 'ACTIVE' && !isExpired(link.expiresAt),
+              'badge-error': link.linkStatus === 'EXPIRED' || isExpired(link.expiresAt)
+            }">
+                        {{ isExpired(link.expiresAt) ? 'Expired' : link.linkStatus }}
+                    </span>
+                    <span class="click-count">
+                        <strong>{{ link.clickCount }}</strong> clicks
+                    </span>
+                </div>
+
+                <!-- URLs -->
+                <div class="link-urls">
+                    <div class="url-row">
+                        <span class="url-label">Short URL:</span>
+                        <div class="url-content">
+                            <a [href]="link.shortUrl" target="_blank" class="short-url">
+                                {{ link.shortUrl }}
+                            </a>
+                            <button class="btn btn-sm btn-success" (click)="copyToClipboard(link.shortUrl)">
+                                📋
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="url-row">
+                        <span class="url-label">Original:</span>
+                        <a [href]="link.longUrl" target="_blank" class="long-url" [title]="link.longUrl">
+                            {{ truncateUrl(link.longUrl, 60) }}
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Metadata -->
+                <div class="link-metadata">
+                    <div class="metadata-row">
+                        <span class="meta-label">Created:</span>
+                        <span class="meta-value">{{ formatDate(link.createdDate) }}</span>
+                    </div>
+                    <div class="metadata-row">
+                        <span class="meta-label">Expires:</span>
+                        <span class="meta-value text-warning">{{ formatDate(link.expiresAt) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

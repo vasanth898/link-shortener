@@ -1,0 +1,114 @@
+<!-- Home Component Template -->
+<div class="home-container">
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1 class="hero-title fade-in">
+                Shorten Your Links 🚀
+            </h1>
+            <p class="hero-subtitle fade-in">
+                Transform long URLs into short, shareable links in seconds
+            </p>
+        </div>
+
+        <!-- URL Shortening Form -->
+        <div class="card shortener-card fade-in">
+            <form (ngSubmit)="onSubmit()" class="shortener-form">
+                <div class="form-group">
+                    <label for="longUrl" class="form-label">Enter your long URL</label>
+                    <input type="text" id="longUrl" name="longUrl" [(ngModel)]="longUrl" class="form-input"
+                        placeholder="https://example.com/very/long/url/that/needs/shortening" [disabled]="isLoading"
+                        required />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="isLoading || !longUrl.trim()">
+                        <span *ngIf="!isLoading">✨ Shorten URL</span>
+                        <span *ngIf="isLoading" class="flex items-center gap-2">
+                            <span class="spinner"></span>
+                            Shortening...
+                        </span>
+                    </button>
+
+                    <button type="button" class="btn btn-secondary" (click)="reset()" [disabled]="isLoading"
+                        *ngIf="shortenedResult || longUrl">
+                        Clear
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Result Card -->
+        <div *ngIf="shortenedResult" class="card result-card fade-in">
+            <div class="result-header">
+                <h2 class="result-title">✅ Your Shortened URL</h2>
+            </div>
+
+            <!-- Short URL Display -->
+            <div class="url-display">
+                <div class="url-box">
+                    <span class="url-label">Short URL:</span>
+                    <div class="url-value-container">
+                        <a [href]="shortenedResult.shortUrl" target="_blank" class="url-value">
+                            {{ shortenedResult.shortUrl }}
+                        </a>
+                        <button class="btn btn-success btn-sm" (click)="copyToClipboard(shortenedResult.shortUrl)">
+                            📋 Copy
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metadata Grid -->
+            <div class="metadata-grid">
+                <div class="metadata-item">
+                    <span class="metadata-label">Short Code</span>
+                    <span class="metadata-value">{{ shortenedResult.shortCode }}</span>
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Click Count</span>
+                    <span class="metadata-value">{{ shortenedResult.clickCount }}</span>
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Created</span>
+                    <span class="metadata-value">{{ formatDate(shortenedResult.createdDate) }}</span>
+                </div>
+
+                <div class="metadata-item">
+                    <span class="metadata-label">Expires</span>
+                    <span class="metadata-value text-warning">
+                        {{ formatDate(shortenedResult.expiresAt) }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- Info Message -->
+            <div class="info-box">
+                <p>⏰ This link will expire in approximately 3 minutes. Click counts and analytics are tracked!</p>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card card glass-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Lightning Fast</h3>
+                <p class="feature-description">Generate short links in milliseconds</p>
+            </div>
+
+            <div class="feature-card card glass-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Track Analytics</h3>
+                <p class="feature-description">Monitor clicks and visitor data</p>
+            </div>
+
+            <div class="feature-card card glass-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">Secure & Reliable</h3>
+                <p class="feature-description">Your links are safe with us</p>
+            </div>
+        </div>
+    </div>
+</div>

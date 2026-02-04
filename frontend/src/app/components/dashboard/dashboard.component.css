@@ -1,0 +1,258 @@
+/* Dashboard Component Styles */
+
+.dashboard-container {
+    min-height: 100vh;
+    padding: 3rem 0;
+}
+
+/* Header */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.dashboard-title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-subtitle {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* Loading */
+.loading-container {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: white;
+}
+
+.loading-container p {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+}
+
+/* Empty State */
+.empty-state {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3rem 2rem;
+    animation-delay: 0.2s;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.empty-title {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.empty-description {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Links Grid */
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 2rem;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Link Card */
+.link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    transition: all var(--transition-normal);
+}
+
+.link-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Link Header */
+.link-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.click-count {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+}
+
+.click-count strong {
+    color: var(--primary-color);
+    font-size: 1.125rem;
+}
+
+/* Link URLs */
+.link-urls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.url-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.url-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.url-content {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.short-url {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    word-break: break-all;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.short-url:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.long-url {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    word-break: break-all;
+    transition: color var(--transition-fast);
+}
+
+.long-url:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+/* Link Metadata */
+.link-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.metadata-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+}
+
+.meta-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.meta-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Info Box */
+.info-box {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.05));
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-md);
+    text-align: left;
+}
+
+.info-box p {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.info-box strong {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-title {
+        font-size: 2.5rem;
+    }
+
+    .links-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .empty-state {
+        padding: 2rem 1.5rem;
+    }
+
+    .empty-icon {
+        font-size: 4rem;
+    }
+
+    .empty-title {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-title {
+        font-size: 2rem;
+    }
+
+    .empty-title {
+        font-size: 1.5rem;
+    }
+
+    .empty-description {
+        font-size: 1rem;
+    }
+
+    .link-card {
+        padding: 1.25rem;
+    }
+
+    .url-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .metadata-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}
